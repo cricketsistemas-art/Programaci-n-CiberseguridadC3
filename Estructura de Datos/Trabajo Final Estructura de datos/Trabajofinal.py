@@ -227,6 +227,4 @@ def evaluacion_get(evaluacion, key):
     return evaluacion.get(key) if evaluacion else None
 
 if __name__ == "_main_":
- main_loop()
-if __name__ == "__main__":
-    main_loop()        
+ main_loop()    

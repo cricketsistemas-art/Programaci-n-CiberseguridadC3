@@ -1,0 +1,17 @@
+{
+  "Enmanuel": {
+    "salt": "824c7d1693beb0a629f609afb9573fd8",
+    "hash": "37f43375135298c7d9b48fdaf589b8009eacdd398cc72965d57e5f6fce467a04",
+    "evaluacion": {
+      "fuerte": false,
+      "puntuacion": 0,
+      "detalles": [
+        "La contrase\u00f1a tiene menos de 12 caracteres.",
+        "Falta letra may\u00fascula.",
+        "Falta letra min\u00fascula.",
+        "Falta car\u00e1cter especial (p. ej. !@#$).",
+        "La contrase\u00f1a es demasiado com\u00fan."
+      ]
+    }
+  }
+}
