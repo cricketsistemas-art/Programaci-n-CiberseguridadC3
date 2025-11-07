@@ -228,3 +228,5 @@ def evaluacion_get(evaluacion, key):
 
 if __name__ == "_main_":
  main_loop()
+if __name__ == "__main__":
+    main_loop()        
