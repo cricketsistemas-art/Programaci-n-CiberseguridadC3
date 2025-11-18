@@ -1,64 +1,64 @@
 import tkinter as tk
-from tkinter import ttk, messagebox
+from tkinter import messagebox
 import re
 
 class GestorContrasenas:
     def _init_(self, root):
         self.root = root
         self.root.title("Gestor de Contraseñas Seguras")
-        self.root.geometry("600x500")
+        self.root.geometry("620x680")
         self.root.resizable(False, False)
-        self.root.configure(bg="#f0f0f0")
+        self.root.configure(bg="#ecf0f1")
 
-        # Lista para almacenar usuarios registrados
-        self.usuarios = []
-
+        self.usuarios = []  # Aquí se guardan los usuarios registrados
         self.crear_interfaz()
 
     def crear_interfaz(self):
-        # Título
-        titulo = tk.Label(self.root, text="Gestor de Contraseñas Seguras", 
-                         font=("Arial", 18, "bold"), bg="#f0f0f0", fg="#2c3e50")
+        # Título principal
+        titulo = tk.Label(self.root, text="GESTOR DE CONTRASEÑAS SEGURAS", 
+                         font=("Arial", 18, "bold"), bg="#ecf0f1", fg="#2c3e50")
         titulo.pack(pady=20)
 
-        # Frame principal
-        frame = tk.Frame(self.root, bg="#f0f0f0")
+        # Frame para los campos
+        frame = tk.Frame(self.root, bg="#ecf0f1")
         frame.pack(pady=10)
 
-        # Usuario
-        tk.Label(frame, text="Usuario:", font=("Arial", 12), bg="#f0f0f0").grid(row=0, column=0, pady=10, padx=10, sticky="w")
-        self.entry_usuario = tk.Entry(frame, font=("Arial", 12), width=30)
-        self.entry_usuario.grid(row=0, column=1, pady=10, padx=10)
+        # Campo Usuario
+        tk.Label(frame, text="Usuario:", font=("Arial", 12), bg="#ecf0f1", fg="#2c3e50").grid(row=0, column=0, padx=10, pady=10, sticky="w")
+        self.entry_usuario = tk.Entry(frame, font=("Arial", 12), width=35)
+        self.entry_usuario.grid(row=0, column=1, padx=10, pady=10)
 
-        # Contraseña
-        tk.Label(frame, text="Contraseña:", font=("Arial", 12), bg="#f0f0f0").grid(row=1, column=0, pady=10, padx=10, sticky="w")
-        self.entry_password = tk.Entry(frame, font=("Arial", 12), width=30, show="*")
-        self.entry_password.grid(row=1, column=1, pady=10, padx=10)
+        # Campo Contraseña
+        tk.Label(frame, text="Contraseña:", font=("Arial", 12), bg="#ecf0f1", fg="#2c3e50").grid(row=1, column=0, padx=10, pady=10, sticky="w")
+        self.entry_password = tk.Entry(frame, font=("Arial", 12), width=35, show="*")
+        self.entry_password.grid(row=1, column=1, padx=10, pady=10)
 
         # Botones
-        btn_frame = tk.Frame(self.root, bg="#f0f0f0")
+        btn_frame = tk.Frame(self.root, bg="#ecf0f1")
         btn_frame.pack(pady=20)
 
         btn_registrar = tk.Button(btn_frame, text="Registrar Usuario", font=("Arial", 12, "bold"),
-                                 bg="#3498db", fg="white", width=20, command=self.registrar_usuario)
-        btn_registrar.grid(row=0, column=0, padx=10)
+                                  bg="#27ae60", fg="white", width=20, command=self.registrar_usuario)
+        btn_registrar.grid(row=0, column=0, padx=15)
 
         btn_verificar = tk.Button(btn_frame, text="Verificar Contraseña", font=("Arial", 12, "bold"),
-                                 bg="#e67e22", fg="white", width=20, command=self.verificar_solo_contrasena)
-        btn_verificar.grid(row=0, column=1, padx=10)
+                                  bg="#e74c3c", fg="white", width=20, command=self.verificar_solo_contrasena)
+        btn_verificar.grid(row=0, column=1, padx=15)
 
         # Área de resultado
-        tk.Label(self.root, text="Resultado de la verificación:", font=("Arial", 12, "bold"), bg="#f0f0f0").pack(anchor="w", padx=50)
-        
-        self.text_resultado = tk.Text(self.root, height=8, width=60, font=("Courier", 11), state="disabled",
-                                     bg="white", relief="sunken", bd=2)
-        self.text_resultado.pack(pady=10, padx=50)
+        tk.Label(self.root, text="Resultado de la verificación:", font=("Arial", 12, "bold"), 
+                bg="#ecf0f1", fg="#2c3e50").pack(anchor="w", padx=40, pady=(20,5))
+
+        self.text_resultado = tk.Text(self.root, height=10, width=70, font=("Consolas", 11), 
+                                     state="disabled", bg="white", relief="solid", bd=1)
+        self.text_resultado.pack(pady=10, padx=40)
 
         # Lista de usuarios registrados
-        tk.Label(self.root, text="Usuarios Registrados:", font=("Arial", 12, "bold"), bg="#f0f0f0").pack(anchor="w", padx=50, pady=(20,5))
-        
-        self.lista_usuarios = tk.Listbox(self.root, height=6, font=("Arial", 11), selectbackground="#3498db")
-        self.lista_usuarios.pack(padx=50, fill="x")
+        tk.Label(self.root, text="Usuarios Registrados:", font=("Arial", 12, "bold"), 
+                bg="#ecf0f1", fg="#2c3e50").pack(anchor="w", padx=40, pady=(15,5))
+
+        self.lista_usuarios = tk.Listbox(self.root, height=8, font=("Arial", 11), selectbackground="#3498db")
+        self.lista_usuarios.pack(padx=40, fill="x", pady=5)
 
     def evaluar_fuerza_contrasena(self, password):
         puntaje = 0
@@ -89,21 +89,17 @@ class GestorContrasenas:
         else:
             sugerencias.append("• Al menos un carácter especial")
 
-        # Definir nivel
+        # Nivel de fuerza
         if puntaje <= 2:
             nivel = "MUY DÉBIL"
-            color = "red"
         elif puntaje == 3:
             nivel = "DÉBIL"
-            color = "orange"
         elif puntaje == 4:
             nivel = "FUERTE"
-            color = "green"
         else:
             nivel = "MUY FUERTE"
-            color = "darkgreen"
 
-        return nivel, puntaje, sugerencias, color
+        return nivel, puntaje, sugerencias
 
     def mostrar_resultado(self, mensaje):
         self.text_resultado.config(state="normal")
@@ -116,30 +112,30 @@ class GestorContrasenas:
         password = self.entry_password.get()
 
         if not usuario or not password:
-            messagebox.showwarning("Error", "Todos los campos son obligatorios")
+            messagebox.showwarning("Campos vacíos", "Por favor completa todos los campos")
             return
 
         if any(u["usuario"] == usuario for u in self.usuarios):
-            messagebox.showerror("Error", "Este usuario ya está registrado")
+            messagebox.showerror("Error", "Este usuario ya existe")
             return
 
-        nivel, puntaje, sugerencias, color = self.evaluar_fuerza_contrasena(password)
+        nivel, puntaje, sugerencias = self.evaluar_fuerza_contrasena(password)
 
         if puntaje <= 2:
-            if not messagebox.askyesno("Contraseña Débil", 
-                f"La contraseña es {nivel}\n\n¿Deseas registrarla de todos modos?"):
+            if not messagebox.askyesno("Contraseña débil", 
+                f"La contraseña es {nivel} ({puntaje}/5)\n\n"
+                "¿Deseas registrarla igual?"):
                 return
 
-        # Registrar usuario
+        # Registrar
         self.usuarios.append({"usuario": usuario, "contraseña": password, "fuerza": nivel})
-        self.lista_usuarios.insert(tk.END, f"{usuario} → {nivel}")
+        self.lista_usuarios.insert(tk.END, f"{usuario}  →  {nivel}")
 
-        # Mostrar resultado
-        resultado = f"USUARIO REGISTRADO CON ÉXITO\n\n"
+        resultado = f"USUARIO REGISTRADO CORRECTAMENTE\n\n"
         resultado += f"Usuario: {usuario}\n"
-        resultado += f"Fuerza: {nivel} ({puntaje}/5)\n"
-        if sugerencias and puntaje < 5:
-            resultado += "\nSugerencias para mejorar:\n" + "\n".join(sugerencias)
+        resultado += f"Nivel de seguridad: {nivel} ({puntaje}/5)\n\n"
+        if sugerencias:
+            resultado += "Sugerencias para mejorar:\n" + "\n".join(sugerencias)
 
         self.mostrar_resultado(resultado)
         messagebox.showinfo("Éxito", f"Usuario '{usuario}' registrado correctamente")
@@ -151,29 +147,30 @@ class GestorContrasenas:
     def verificar_solo_contrasena(self):
         password = self.entry_password.get()
         if not password:
-            messagebox.showwarning("Error", "Ingresa una contraseña para verificar")
+            messagebox.showwarning("Campo vacío", "Escribe una contraseña para verificar")
             return
 
-        nivel, puntaje, sugerencias, color = self.evaluar_fuerza_contrasena(password)
+        nivel, puntaje, sugerencias = self.evaluar_fuerza_contrasena(password)
 
         resultado = f"ANÁLISIS DE CONTRASEÑA\n\n"
         resultado += f"Fuerza: {nivel} ({puntaje}/5)\n\n"
-        
+
         if puntaje >= 4:
-            resultado += "¡Excelente contraseña!\nMuy segura."
+            resultado += "¡EXCELENTE! Contraseña muy segura."
         elif puntaje == 3:
             resultado += "Contraseña aceptable, pero puede mejorar."
         else:
-            resultado += "¡CONTRASEÑA DÉBIL!\nSe recomienda cambiarla."
-        
+            resultado += "¡ADVERTENCIA! Contraseña débil o muy débil."
+
         if sugerencias:
-            resultado += "\n\nPara mayor seguridad:\n" + "\n".join(sugerencias)
+            resultado += "\n\nRecomendaciones:\n" + "\n".join(sugerencias)
 
         self.mostrar_resultado(resultado)
 
 
-# Ejecutar la aplicación
+# ==================== EJECUCIÓN CORRECTA ====================
 if __name__ == "_main_":
     root = tk.Tk()
     app = GestorContrasenas(root)
-    root.mainloop() 
+    root.mainloop()
+# =======================
