@@ -1,25 +1,3 @@
-"""
-Gestor de Contraseñas (Tkinter)
-Archivo: gestor_contraseñas_tkinter.py
-
-Características:
-- Interfaz Tkinter para agregar, buscar, mostrar y borrar entradas.
-- Generador de contraseñas seguras con opciones (longitud, usar símbolos/números/mayúsculas).
-- Almacenamiento cifrado del «vault» (archivo) usando cryptography.Fernet.
-- Derivación de clave desde contraseña maestra con PBKDF2HMAC y una sal guardada.
-
-Requisitos:
-- Python 3.8+
-- Instalar la librería cryptography: pip install cryptography
-
-Uso:
-1) Ejecuta el archivo: python gestor_contraseñas_tkinter.py
-2) Si es la primera vez, crea una contraseña maestra. Esa será necesaria para abrir el vault.
-3) Guarda y administra tus contraseñas. El archivo cifrado se llama 'vault.enc' y la sal 'vault.salt'.
-
-Nota de seguridad: Este es un ejemplo educativo. Para uso sensible, revisa y mejora la gestión de claves y backups.
-"""
-
 from tkinter import *
 from tkinter import messagebox, simpledialog, ttk
 import json
